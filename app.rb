@@ -11,8 +11,13 @@ ForecastIO.api_key = "YOUR-API-KEY"
 
 get "/" do
   # show a view that asks for the location
+  view "ask"
 end
 
-get "/news" do
+get "/newspaper" do
   # do everything else
+  results = Geocoder.search(params["location"])
+  lat_lng = results.first.coordinates
+  lat = lat_lng[0]
+  lng = lat_lng[1]
 end
