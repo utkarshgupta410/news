@@ -15,14 +15,16 @@ get "/" do
 end
 
 get "/newspaper" do
-  # do everything else
   
+  
+#Geolocation:
   results = Geocoder.search(params["location"])
   @location = params["location"]
   lat_lng = results.first.coordinates
   @lat = lat_lng[0]
   @lng = lat_lng[1]
-  
+
+#Weather: 
   ForecastIO.api_key = "ce3af6469e281682efbcc88d15afa7ff" 
   
   @forecast = ForecastIO.forecast(@lat,@lng).to_hash
@@ -34,20 +36,26 @@ get "/newspaper" do
   @dailytemparray = []
   @dailysumarray = []
 
-  for weather_on_day in @forecastarray
-    @dailytemparray << weather_on_day["temperatureHigh"]
-    @dailysumarray << weather_on_day["summary"]
-  end
+#   for weather_on_day in @forecastarray
+#     @dailytemparray << weather_on_day["temperatureHigh"]
+#     @dailysumarray << weather_on_day["summary"]
+#   end
   
+#News:
+  url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=1fb4347a5ae64c02bcd3747b6d05de77"
+  @news = HTTParty.get(url).parsed_response.to_hash
+  
+  @newsarray = @news["articles"]
+  @topheadlinearray = []
+  @urlarray = []
 
-
-  puts @forecast
-  puts @current_temp
-  puts @current_sum
-  puts @dailytemparray
-  puts @dailysumarray
-
-
+  for articlenumber in @newsarray
+    @topheadlinearray << articlenumber["title"]
+    @urlarray << articlenumber["url"]
+  end
+ 
+  puts @topheadlinearray
+  puts @urlarray
   view "newspaper"
 
 end

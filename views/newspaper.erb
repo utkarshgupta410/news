@@ -25,25 +25,36 @@
     <div class="container mt-5">
         <h1> <%= @location %> </h1>
         <p1> <%= @lat %>, <%= @lng %> </p1>
-        <p1> <%=@dailytemparray%> </p1>
-
-        
     </div>
 
+    
     <div class="container mt-5">
-        <h1> Weather:</h1>
-        <p1> <strong>Current:</strong> Today's temperature is <strong> <%= @current_temp %> F </strong>and <strong> <%= @current_sum %></p1>
+        <h1> Weather</h1>
+        <p1> <strong>Current:</strong> Today's temperature is <strong> <%= @current_temp %> F </strong>and <strong> <%= @current_sum %></strong></p1>
+        <br>
+        <br>
+        <p1><strong> Forecasts: </strong></p1>
         <br>
         <% i = 1 %>
-        <%for numberforecasts in @dailytemparray%>
-
-            <p1> <strong>Day <%= i %>:</strong> Today's temperature is <strong> <%= numberforecasts %> F </strong>and <strong> <%= @current_sum %></p1>
+        <% for weather_on_day in @forecastarray %>
+            <% @dailytemparray << weather_on_day["temperatureHigh"] %>
+            <% @dailysumarray << weather_on_day["summary"] %>
+            <p1><strong>Day <%= i %>:</strong> The temperature  on Day <%=i%> is <strong> <%= weather_on_day["temperatureHigh"] %> F </strong>and <strong> <%= weather_on_day["summary"] %></strong></p1>
             <br>
-            <% i= i+1 %>
-        <%end%>
+            <% i = i+1 %>
+        <% end %>
+    </div>
     
+    <div class="container mt-5">
+        <h1> News Headlines </h1>
+        <% j =1%>
+        <% for articlenumber in @newsarray %>
+            <p> <strong> Headline <%= j %>:</strong> <%= articlenumber["title"] %> </p>
+            <p><strong> URL: </strong><%= articlenumber["url"] %></p>
+            <br>
+            <% j = j+1 %>
+        <% end %>
 
-        
     </div>
 
     <!-- Optional JavaScript -->
