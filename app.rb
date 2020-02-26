@@ -15,8 +15,7 @@ get "/" do
 end
 
 get "/newspaper" do
-  
-  
+
 #Geolocation:
   results = Geocoder.search(params["location"])
   @location = params["location"]
@@ -54,8 +53,8 @@ get "/newspaper" do
     @urlarray << articlenumber["url"]
   end
  
-  puts @topheadlinearray
-  puts @urlarray
+#   puts @topheadlinearray
+#   puts @urlarray
   view "newspaper"
 
 end
