@@ -29,20 +29,28 @@
 
     
     <div class="container mt-5">
-        <h1> Weather</h1>
-        <p1> <strong>Current:</strong> Today's temperature is <strong> <%= @current_temp %> F </strong>and <strong> <%= @current_sum %></strong></p1>
-        <br>
-        <br>
-        <p1><strong> Forecasts: </strong></p1>
-        <br>
-        <% i = 1 %>
-        <% for weather_on_day in @forecastarray %>
-            <% @dailytemparray << weather_on_day["temperatureHigh"] %>
-            <% @dailysumarray << weather_on_day["summary"] %>
-            <p1><strong>Day <%= i %>:</strong> The temperature  on Day <%=i%> is <strong> <%= weather_on_day["temperatureHigh"] %> F </strong>and <strong> <%= weather_on_day["summary"] %></strong></p1>
-            <br>
-            <% i = i+1 %>
-        <% end %>
+        <div class="row">
+            <h1 style = text-align:right> Weather</h1>
+        </div>
+        <div class="row">
+            <div class=col-md>
+                <p1> <strong>Current:</strong> Today's temperature is <strong> <%= @current_temp %> F </strong>and <strong> <%= @current_sum %></strong></p1>
+                <br>
+                <br>
+                <p1><strong> Forecasts: </strong></p1>
+                <br>
+            </div>
+            <div class=col-md>
+                <% i = 1 %>
+                <% for weather_on_day in @forecastarray %>
+                    <% @dailytemparray << weather_on_day["temperatureHigh"] %>
+                    <% @dailysumarray << weather_on_day["summary"] %>
+                    <p1><strong>Day <%= i %>:</strong> The temperature  on Day <%=i%> is <strong> <%= weather_on_day["temperatureHigh"] %> F </strong>and <strong> <%= weather_on_day["summary"] %></strong></p1>
+                    <br>
+                    <% i = i+1 %>
+                <% end %>
+            </div>
+        </div>
     </div>
     
     <div class="container mt-5">
